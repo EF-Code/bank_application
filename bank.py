@@ -3,7 +3,7 @@ class BankAccount:
         self.account_number = account_number
         self.holder_name = holder_name
         self.balance = balance
-   def deposit(self, amount):
+    def deposit(self, amount):
         if amount > 0:
             self.balance += amount
             return f"Deposited {amount}. New balance: {self.balance}"
