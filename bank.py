@@ -16,7 +16,7 @@ class BankAccount:
         return "Insufficient balance or invalid amount."
 
 class SavingsAccount(BankAccount):
-    def __init__(self, account_number, holder_name, balance=0, withdrawal_limit=5000):
+    def __init__(self, account_number, holder_name, balance=0, withdrawal_limit=100000):
         super().__init__(account_number, holder_name, balance)
         self.withdrawal_limit = withdrawal_limit
 
