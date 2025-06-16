@@ -56,25 +56,30 @@ elif menu == "📊 Dashboard":
     else:
         st.warning("Please create or log into an account.")
 
-elif menu == "Deposit":
+elif menu == "💸 Deposit":
     if st.session_state.account:
-        st.subheader("Deposit Funds")
-        amount = st.number_input("Amount to deposit", min_value=1)
+        st.subheader("💰 Make a Deposit")
+        amount = st.number_input("Amount to deposit (₦)", min_value=1)
         if st.button("Deposit"):
             result = st.session_state.account.deposit(amount)
+            add_transaction("Deposit", amount)
             st.success(result)
     else:
-        st.warning("Please create an account first.")
+        st.warning("Please create or log into an account.")
 
-elif menu == "Withdraw":
+
+elif menu == "🏧 Withdraw":
     if st.session_state.account:
-        st.subheader("Withdraw Funds")
-        amount = st.number_input("Amount to withdraw", min_value=1)
+        st.subheader("💳 Withdraw Funds")
+        amount = st.number_input("Amount to withdraw (₦)", min_value=1)
         if st.button("Withdraw"):
             result = st.session_state.account.withdraw(amount)
+            if "Withdrew" in result:
+                add_transaction("Withdraw", amount)
             st.success(result)
     else:
-        st.warning("Please create an account first.")
+        st.warning("Please create or log into an account.")
+
 
 elif menu == "📈 History":
     if st.session_state.account:
