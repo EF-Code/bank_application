@@ -1,12 +1,25 @@
 import streamlit as st
 from bank import SavingsAccount, CurrentAccount
+import pandas as pd
+from datetime import datetime
+import altair as alt
 
 if "account" not in st.session_state:
     st.session_state.account_type = None
     st.session_state.account = None
+    st.session_state.transactions = []
 
+def add_transaction(action, amount):
+    st.session_state.transactions.append({
+        "Time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "Action": action,
+        "Amount (₦)": amount,
+        "Balance (₦)": st.session_state.account.balance
+    })
+
+st.set_page_config(page_title="World Bank 💰", page_icon="🏦")
 st.sidebar.title("🏦 World Bank")
-menu = st.sidebar.radio("Select Action", ["Create Account", "Deposit", "Withdraw", "View Balance"])
+menu = st.sidebar.radio("📋 Menu", ["🏁 Create Account", "📊 Dashboard", "💸 Deposit", "🏧 Withdraw", "📈 History", "🚪 Logout"])
 
 st.title("💳 World Bank!")
 
