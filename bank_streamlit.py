@@ -24,3 +24,32 @@ if menu == "Create Account":
             st.session_state.account = CurrentAccount(acc_number, name, initial_balance)
         st.session_state.account_type = acc_type
         st.success(f"{acc_type} Account created for {name} with balance {initial_balance}.")
+
+elif menu == "Deposit":
+    if st.session_state.account:
+        st.subheader("Deposit Funds")
+        amount = st.number_input("Amount to deposit", min_value=1)
+        if st.button("Deposit"):
+            result = st.session_state.account.deposit(amount)
+            st.success(result)
+    else:
+        st.warning("Please create an account first.")
+
+elif menu == "Withdraw":
+    if st.session_state.account:
+        st.subheader("Withdraw Funds")
+        amount = st.number_input("Amount to withdraw", min_value=1)
+        if st.button("Withdraw"):
+            result = st.session_state.account.withdraw(amount)
+            st.success(result)
+    else:
+        st.warning("Please create an account first.")
+
+elif menu == "View Balance":
+    if st.session_state.account:
+        st.subheader("Account Balance")
+        st.info(f"Account Holder: {st.session_state.account.holder_name}")
+        st.info(f"Account Number: {st.session_state.account.account_number}")
+        st.success(f"Current Balance: {st.session_state.account.balance}")
+    else:
+        st.warning("Please create an account first.")
