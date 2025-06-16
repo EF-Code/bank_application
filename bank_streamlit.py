@@ -44,6 +44,18 @@ if menu == "🏁 Create Account":
         st.session_state.account_type = acc_type
         add_transaction("Initial Deposit", initial_balance)
         st.success(f"{acc_type} Account created for {name} with ₦{initial_balance:.2f}.")
+
+elif menu == "📊 Dashboard":
+    if st.session_state.account:
+        acc = st.session_state.account
+        st.subheader("👤 Account Summary")
+        st.markdown(f"**Name:** {acc.holder_name}")
+        st.markdown(f"**Account No:** {acc.account_number}")
+        st.markdown(f"**Account Type:** {st.session_state.account_type}")
+        st.markdown(f"**Current Balance:** ₦{acc.balance:.2f}")
+    else:
+        st.warning("Please create or log into an account.")
+
 elif menu == "Deposit":
     if st.session_state.account:
         st.subheader("Deposit Funds")
