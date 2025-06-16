@@ -23,12 +23,18 @@ menu = st.sidebar.radio("📋 Menu", ["🏁 Create Account", "📊 Dashboard", "
 
 st.title("💳 World Bank!")
 
-if menu == "Create Account":
-    st.subheader("Create New Account")
-    name = st.text_input("Account Holder Name")
+if menu == "🚪 Logout":
+    st.session_state.account = None
+    st.session_state.transactions = []
+    st.session_state.account_type = None
+    st.success("You have been logged out.")
+
+if menu == "🏁 Create Account":
+    st.subheader("🆕 Open New Account")
+    name = st.text_input("Full Name")
     acc_number = st.text_input("Account Number")
     acc_type = st.selectbox("Account Type", ["Savings", "Current"])
-    initial_balance = st.number_input("Initial Deposit", min_value=0)
+    initial_balance = st.number_input("Initial Deposit (₦)", min_value=0)
 
     if st.button("Create Account"):
         if acc_type == "Savings":
@@ -36,8 +42,8 @@ if menu == "Create Account":
         else:
             st.session_state.account = CurrentAccount(acc_number, name, initial_balance)
         st.session_state.account_type = acc_type
-        st.success(f"{acc_type} Account created for {name} with balance {initial_balance}.")
-
+        add_transaction("Initial Deposit", initial_balance)
+        st.success(f"{acc_type} Account created for {name} with ₦{initial_balance:.2f}.")
 elif menu == "Deposit":
     if st.session_state.account:
         st.subheader("Deposit Funds")
