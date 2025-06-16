@@ -76,11 +76,23 @@ elif menu == "Withdraw":
     else:
         st.warning("Please create an account first.")
 
-elif menu == "View Balance":
+elif menu == "📈 History":
     if st.session_state.account:
-        st.subheader("Account Balance")
-        st.info(f"Account Holder: {st.session_state.account.holder_name}")
-        st.info(f"Account Number: {st.session_state.account.account_number}")
-        st.success(f"Current Balance: {st.session_state.account.balance}")
+        st.subheader("📜 Transaction History")
+
+        if len(st.session_state.transactions) > 0:
+            df = pd.DataFrame(st.session_state.transactions)
+
+            st.dataframe(df, use_container_width=True)
+
+            chart = alt.Chart(df).mark_line(point=True).encode(
+                x='Time',
+                y='Balance (₦)',
+                color=alt.value("#008000")
+            ).properties(title="Balance Over Time")
+            st.altair_chart(chart, use_container_width=True)
+
+        else:
+            st.info("No transaction history yet.")
     else:
-        st.warning("Please create an account first.")
+        st.warning("Please create or log into an account.")
