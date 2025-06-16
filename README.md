@@ -36,3 +36,9 @@ pip install -r requirements.txt
 ```bash
 streamlit run bank_streamlit.py
 ```
+
+
+## 🚀️ Live Demo
+
+
+A live version of the application can be found [here](https://bankapplication-kwefr2zmpp3sv2bbvkirxn.streamlit.app/).
