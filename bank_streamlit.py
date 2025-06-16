@@ -97,6 +97,9 @@ elif menu == "📈 History":
             ).properties(title="Balance Over Time")
             st.altair_chart(chart, use_container_width=True)
 
+            csv = df.to_csv(index=False).encode('utf-8')
+            st.download_button("📥 Export CSV", csv, "transaction_history.csv", "text/csv", key='download-csv')
+
         else:
             st.info("No transaction history yet.")
     else:
